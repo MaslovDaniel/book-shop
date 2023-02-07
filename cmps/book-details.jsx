@@ -2,15 +2,18 @@
 export function BookDetails({ book, onGoBack }) {
 
     console.log('book:', book);
-
-    //  Show the price in color (using CSS classes): - amount > 150 - red
-    // - amount < 20 - green
-
     const currYear = (new Date).getFullYear()
 
     let bookPage = pageCount()
     let publishDate = checkDate()
+    let bookDynClass = checkBookPrice()
+    let onSaleStr = checkIfSale()
 
+    function checkIfSale() {
+      let str=''
+        if(book.listPrice.isOnSale) str+='On sale'
+        return str
+    }
 
     function checkDate() {
         let dateStr = book.publishedDate
@@ -19,9 +22,12 @@ export function BookDetails({ book, onGoBack }) {
         return dateStr
     }
 
-
-
-
+    function checkBookPrice() {
+        let dynClass = ''
+        if (book.listPrice.amount > 150) dynClass = 'red-price'
+        else if (book.listPrice.amount < 20) dynClass = 'green-price'
+        return dynClass
+    }
 
     function pageCount() {
         let pageStr = book.pageCount
@@ -29,7 +35,6 @@ export function BookDetails({ book, onGoBack }) {
         else if (book.pageCount > 200) pageStr += ' Descent Reading'
         else if (book.pageCount < 100) pageStr += ' Light Reading'
         return pageStr
-
     }
 
     return (
@@ -38,6 +43,8 @@ export function BookDetails({ book, onGoBack }) {
             <p>{book.subtitle}</p>
             <p>{bookPage}</p>
             <p>{publishDate}</p>
+            <p><span className={bookDynClass}>{book.listPrice.amount}{book.listPrice.currencyCode}</span></p>
+            <p>{onSaleStr}</p>
             <button onClick={onGoBack}>Go Back</button>
         </div>
     )

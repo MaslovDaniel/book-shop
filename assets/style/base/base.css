@@ -43,3 +43,11 @@ object {
 .debug * {
   outline: 1px solid gold
 }
+
+.red-price{
+  color:red
+}
+
+.green-price{
+  color:green
+}

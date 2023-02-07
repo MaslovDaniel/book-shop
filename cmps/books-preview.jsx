@@ -1,7 +1,12 @@
  
- export function BooksPreview() {
+ export function BooksPreview({book}) {
 
-    <div>
-        hi from books preview
-    </div>
+
+
+  return <article className="book-preview">
+
+    <h2>{book.bookName}</h2>
+
+  </article>
+
  }

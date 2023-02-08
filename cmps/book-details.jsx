@@ -1,3 +1,4 @@
+import { LongTxt } from "./long-txt.jsx";
 
 export function BookDetails({ book, onGoBack }) {
 
@@ -45,6 +46,7 @@ export function BookDetails({ book, onGoBack }) {
             <p>{publishDate}</p>
             <p><span className={bookDynClass}>{book.listPrice.amount}{book.listPrice.currencyCode}</span></p>
             <p>{onSaleStr}</p>
+            <LongTxt txt={book.description} length={100} />
             <button onClick={onGoBack}>Go Back</button>
         </div>
     )

@@ -47,6 +47,44 @@ function getDefaultFilter() {
   return { txt: '', maxPrice: '' }
 }
 
+function getDefaultReview() {
+  return { fullName: '', rating: 0, readAt: '', id: '' }
+}
+
+function saveReview(bookId, reviewToSave) {
+  const books = _loadBooksFromStorage()
+  const book = books.find((book) => book.id === bookId)
+  const review = _createReview(reviewToSave)
+  book.reviews.unshift(review)
+  _saveBooksToStorage(books)
+  return Promise.resolve(review)
+}
+
+function removeReview(bookId, reviewId) {
+  let books = _loadBooksFromStorage()
+  let book = books.find((book) => book.id === bookId)
+  const newReviews = book.reviews.filter((review) => review.id !== reviewId)
+  book.reviews = newReviews
+  _saveBooksToStorage(books)
+  return Promise.resolve()
+}
+
+function _createReview(reviewToSave) {
+  return {
+    id: utilService.makeId(),
+    ...reviewToSave,
+  }
+}
+
+function _saveBooksToStorage(books) {
+  storageService.saveToStorage(STORAGE_KEY, books)
+}
+
+function _loadBooksFromStorage() {
+  return storageService.loadFromStorage(STORAGE_KEY)
+}
+
+
 function _createBooks() {
   let books = utilService.loadFromStorage(BOOKS_KEY)
   if (!books || !books.length) {

@@ -5,9 +5,7 @@ import { BooksList } from '../cmps/books-list.jsx'
 import { BooksFilter } from '../cmps/books.filter.jsx'
 import { booksService } from '../services/books.service.js'
 
-
 export function BooksIndex() {
-
     const [books, setBooks] = useState(null)
     const [selectedBook, setSelectedBook] = useState(null)
     const [filterBy, setFilterBy] = useState(booksService.getDefaultFilter())
@@ -40,12 +38,8 @@ export function BooksIndex() {
     }
 
     if (!books) return // without this nothing works !
-
-
     return (
-
         <section className="books-index">
-
             {!selectedBook && <div>
                 <BooksFilter onSetFilter={onSetFilter} />
                 <BooksList books={books} onRemoveBook={onRemoveBook} onSelectBook={onSelectBook} />

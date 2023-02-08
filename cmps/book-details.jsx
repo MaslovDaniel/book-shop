@@ -1,7 +1,8 @@
+import { booksService } from "../services/books.service.js";
+import { AddReview } from "./add-review.jsx";
 import { LongTxt } from "./long-txt.jsx";
 
 export function BookDetails({ book, onGoBack }) {
-
     console.log('book:', book);
     const currYear = (new Date).getFullYear()
 
@@ -38,6 +39,18 @@ export function BookDetails({ book, onGoBack }) {
         return pageStr
     }
 
+    function onSaveReview(reviewToAdd) {
+        booksService.saveReview(book.id, reviewToAdd)
+            .then((review) => {
+                const reviews = [review, ...book.reviews]
+                setBook({ ...book, reviews })
+            })
+            .catch((err) => {
+                console.log('err:', err);
+
+            })
+    }
+
     return (
         <div className="book-details">
             <p>{book.title}</p>
@@ -47,6 +60,7 @@ export function BookDetails({ book, onGoBack }) {
             <p><span className={bookDynClass}>{book.listPrice.amount}{book.listPrice.currencyCode}</span></p>
             <p>{onSaleStr}</p>
             <LongTxt txt={book.description} length={100} />
+            <AddReview onSaveReview={onSaveReview} />
             <button onClick={onGoBack}>Go Back</button>
         </div>
     )

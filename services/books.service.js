@@ -10,6 +10,9 @@ export const booksService = {
   remove,
   save,
   getDefaultFilter,
+  getDefaultReview,
+  saveReview,
+  removeReview
 }
 
 function query(filterBy = getDefaultFilter()) {
@@ -55,7 +58,7 @@ function saveReview(bookId, reviewToSave) {
   const books = _loadBooksFromStorage()
   const book = books.find((book) => book.id === bookId)
   const review = _createReview(reviewToSave)
-  book.reviews.unshift(review)
+  // book.reviews.unshift(review)
   _saveBooksToStorage(books)
   return Promise.resolve(review)
 }
@@ -77,11 +80,11 @@ function _createReview(reviewToSave) {
 }
 
 function _saveBooksToStorage(books) {
-  storageService.saveToStorage(STORAGE_KEY, books)
+  storageService.saveToStorage(BOOKS_KEY, books)
 }
 
 function _loadBooksFromStorage() {
-  return storageService.loadFromStorage(STORAGE_KEY)
+  return storageService.loadFromStorage(BOOKS_KEY)
 }
 
 

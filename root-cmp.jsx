@@ -1,7 +1,3 @@
-const Router = ReactRouterDOM.HashRouter
-const { Route, Routes } = ReactRouterDOM
-
-
 const { useState } = React
 import { AboutUs } from './views/about.jsx'
 import { BooksIndex } from './views/books-index.jsx'
@@ -15,17 +11,15 @@ export function App() {
         ev.preventDefault()
         setPage(page)
     }
-    return <Router>
-    <section className="main-layout app">
+    return <section className="main-layout app">
+        <header className="app-header full main-layout">
             <AppHeader onSetPage={onSetPage} />
+        </header>
 
-    
-
-        <main className="full main-layout">
+        <main>
             {page === 'home' && <HomePage />}
             {page === 'about' && <AboutUs />}
             {page === 'book' && <BooksIndex />}
         </main>
     </section>
-    </Router>
 }

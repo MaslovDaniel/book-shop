@@ -3,7 +3,6 @@ import { AddReview } from "./add-review.jsx";
 import { LongTxt } from "./long-txt.jsx";
 
 export function BookDetails({ book, onGoBack }) {
-    console.log('book:', book);
     const currYear = (new Date).getFullYear()
 
     let bookPage = pageCount()
